@@ -3,130 +3,188 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Spark AI</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>Spark AI - Transparent AI Chatbot Widget</title>
+  
+  <!-- Font Awesome for GitHub Icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #0a0f24, #0d1c40);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0e152e, #1a1f4b);
       color: white;
-      overflow-x: hidden;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      animation: bgShift 20s ease infinite alternate;
+      align-items: center;
+      overflow-x: hidden;
+      animation: bgFade 10s ease infinite;
     }
 
-    @keyframes bgShift {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 100% 50%; }
+    @keyframes bgFade {
+      0% { background-position: 0% 0%; }
+      50% { background-position: 0% 100%; }
+      100% { background-position: 0% 0%; }
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 20px 100%;
+      z-index: 0;
+      animation: streakShift 5s linear infinite;
+    }
+
+    @keyframes streakShift {
+      0% { background-position: 0 0; }
+      100% { background-position: 20px 0; }
     }
 
     .navbar {
+      width: 100%;
       padding: 20px 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       position: relative;
       z-index: 2;
-      background: rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
     }
 
     .logo {
       font-size: 28px;
-      font-weight: 700;
-      color: #00d2ff;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
     }
 
     .nav-links a {
-      color: rgba(255, 255, 255, 0.8);
+      color: rgba(255, 255, 255, 0.85);
       text-decoration: none;
-      margin: 0 15px;
+      margin: 0 12px;
+      font-size: 16px;
       font-weight: 500;
-      position: relative;
       transition: color 0.3s;
     }
 
-    .nav-links a.active,
     .nav-links a:hover {
-      color: #00d2ff;
+      color: #ffffff;
+    }
+
+    .github-link {
+      margin-left: 20px;
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.8);
+      transition: color 0.3s;
+    }
+
+    .github-link:hover {
+      color: #ffffff;
     }
 
     .content {
-      padding: 60px 20px;
+      padding: 80px 20px;
+      max-width: 900px;
       text-align: center;
+      z-index: 1;
       flex-grow: 1;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      animation: fadeIn 1.5s ease-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      justify-content: center;
     }
 
     .join-users {
       font-size: 14px;
       color: #87ceeb;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
+      opacity: 0;
+      animation: slideUp 1s ease-out 0.5s forwards;
     }
 
-    h1 {
-      font-size: 56px;
-      margin: 10px 0 20px;
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .content h1 {
+      font-size: 60px;
+      font-weight: bold;
+      margin-bottom: 20px;
       line-height: 1.2;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+      animation: textReveal 1.5s ease-out;
     }
 
-    h1 .highlight {
-      color: #00d2ff;
-      background: rgba(255, 255, 255, 0.05);
-      padding: 4px 10px;
+    @keyframes textReveal {
+      0% { opacity: 0; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .content h1 span.highlight {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 5px 12px;
       border-radius: 8px;
+      color: #87ceeb;
+      animation: pulse 2s infinite;
     }
 
-    p {
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .content p {
       font-size: 18px;
-      color: rgba(255, 255, 255, 0.9);
-      max-width: 700px;
-      margin: 0 auto 40px;
+      line-height: 1.6;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeInUp 1s ease-out 0.7s forwards;
+    }
+
+    @keyframes fadeInUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 0.95; }
     }
 
     .download-buttons {
       display: flex;
       gap: 20px;
-      flex-wrap: wrap;
       justify-content: center;
+      opacity: 0;
+      animation: slideIn 1s ease-out 1s forwards;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     .download-btn {
+      padding: 12px 28px;
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.2);
-      padding: 14px 28px;
       border-radius: 40px;
       color: white;
       text-decoration: none;
-      font-weight: 600;
+      font-size: 16px;
+      font-weight: 500;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       backdrop-filter: blur(12px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      transition: all 0.3s ease;
+      transition: background 0.3s, transform 0.2s;
     }
 
     .download-btn:hover {
-      transform: translateY(-3px) scale(1.03);
-      background: rgba(0, 210, 255, 0.2);
-      box-shadow: 0 6px 18px rgba(0,210,255,0.3);
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.05);
     }
 
     .download-btn img {
@@ -135,23 +193,12 @@
       filter: brightness(0) invert(1);
     }
 
-    .tab-content {
-      display: none;
-      max-width: 800px;
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
-    .docs-section {
-      text-align: left;
-      margin-top: 30px;
-    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
 
     .docs-section code {
       background: rgba(255, 255, 255, 0.1);
-      padding: 3px 8px;
+      padding: 2px 6px;
       border-radius: 4px;
       font-size: 14px;
     }
@@ -161,10 +208,18 @@
     }
 
     .footer {
-      text-align: center;
+      margin-top: auto;
       padding: 20px;
       font-size: 14px;
-      color: rgba(255, 255, 255, 0.5);
+      color: rgba(255, 255, 255, 0.6);
+      text-align: center;
+      opacity: 0;
+      animation: fadeIn 1s ease-out 1.5s forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     .status-buttons {
@@ -185,91 +240,87 @@
       color: white;
       backdrop-filter: blur(10px);
       transition: transform 0.2s;
-      opacity: 0.9;
+      animation: slideInLeft 1s ease-out forwards;
     }
 
     .status-btn.microsoft {
-      background: rgba(0, 200, 0, 0.2);
-      border: 1px solid rgba(0, 255, 0, 0.3);
+      background: rgba(0, 128, 0, 0.3);
+      border: 1px solid rgba(0, 128, 0, 0.5);
+      animation-delay: 0.5s;
     }
 
     .status-btn.mac {
-      background: rgba(200, 0, 0, 0.2);
-      border: 1px solid rgba(255, 0, 0, 0.3);
+      background: rgba(255, 0, 0, 0.3);
+      border: 1px solid rgba(255, 0, 0, 0.5);
+      animation-delay: 0.7s;
     }
 
     .status-btn:hover {
       transform: scale(1.05);
     }
 
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 36px;
-      }
-
-      .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .download-buttons {
-        flex-direction: column;
-        align-items: center;
-      }
+    @keyframes slideInLeft {
+      from { transform: translateX(-20px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
     }
   </style>
 </head>
+
 <body>
   <div class="navbar">
     <div class="logo">Spark AI</div>
     <div class="nav-links">
-      <a href="#" class="active" onclick="showTab('about', this)">About</a>
-      <a href="#" onclick="showTab('docs', this)">Documentation</a>
+      <a href="#" onclick="showTab('about')">About</a>
+      <a href="#" onclick="showTab('docs')">Documentation</a>
+      <a href="https://github.com/natedemoss/spark-ai" class="github-link" target="_blank" title="GitHub Repo">
+        <i class="fab fa-github"></i>
+      </a>
     </div>
   </div>
 
   <div class="content">
     <div id="about" class="tab-content active">
-      <div class="join-users">Join hundreds of users</div>
-      <h1>Use Spark AI to <span class="highlight">supercharge</span> your desktop</h1>
-      <p>Spark AI is a transparent desktop chatbot widget for Windows and Mac that brings AI convenience to your fingertips.</p>
+      <div class="join-users">Join hundreds of other users</div>
+      <h1>Spark AI to <span class="highlight">Enhance</span> Your Workflow</h1>
+      <p>Spark AI is a transparent chatbot widget for your desktop, designed to assist seamlessly on Windows and Mac.</p>
       <div class="download-buttons">
         <a href="https://github.com/natedemoss/Spark-AI/releases/download/v1.0.0/Spark.AI.Setup.1.0.0.exe" class="download-btn">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Microsoft_Edge_logo_%282019%29.svg" alt="Windows">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Microsoft_Edge_logo_%282019%29.svg" alt="Windows Logo">
           Download for Windows
         </a>
         <a href="path/to/spark-ai-mac-setup.dmg" class="download-btn">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Mac">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple Logo">
           Download for Mac
         </a>
       </div>
     </div>
 
     <div id="docs" class="tab-content">
-      <div class="join-users">Get Started with Spark AI</div>
-      <h1>Documentation</h1>
-      <p>Here are your keyboard shortcuts and tips:</p>
+      <div class="join-users">Join hundreds of other users</div>
+      <h1>Documentation & Help</h1>
+      <p>Spark AI is an Electron app built using HTML and JavaScript, providing a lightweight and transparent chatbot widget for your desktop.</p>
       <div class="docs-section">
-        <p><code>Ctrl + Shift + X</code> — Hide widget</p>
-        <p><code>Ctrl + R</code> — Clear messages</p>
-        <p><em>Note: Key shortcuts may vary depending on OS focus.</em></p>
+        <p><strong>Commands:</strong></p>
+        <p><code>Ctrl + Shift + X</code>: Hide widget</p>
+        <p><code>Ctrl + R</code>: Clear messages</p>
+        <p><em>Note:</em> These commands may not work consistently in all scenarios due to system or app focus issues.</p>
       </div>
     </div>
   </div>
 
   <div class="status-buttons">
-    <div class="status-btn microsoft">Microsoft Services Online</div>
-    <div class="status-btn mac">Mac Services Offline</div>
+    <div class="status-btn microsoft">Microsoft Services online</div>
+    <div class="status-btn mac">Mac Services offline</div>
   </div>
 
   <div class="footer">Created by Nathan DeMoss</div>
 
   <script>
-    function showTab(tabId, el) {
-      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
       document.getElementById(tabId).classList.add('active');
-      el.classList.add('active');
     }
   </script>
 </body>
