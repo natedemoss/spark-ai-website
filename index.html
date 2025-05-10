@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Spark AI - Transparent AI Chatbot Widget</title>
+  <title>Spark AI</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     * {
@@ -13,53 +13,36 @@
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #0f1a3b, #1a2b5e);
+      background: linear-gradient(135deg, #0a0f24, #0d1c40);
       color: white;
+      overflow-x: hidden;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      position: relative;
-      overflow-x: hidden;
-      animation: bgFade 15s ease infinite;
+      animation: bgShift 20s ease infinite alternate;
     }
 
-    @keyframes bgFade {
-      0%, 100% { background-position: 0% 0%; }
-      50% { background-position: 0% 100%; }
-    }
-
-    body::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
-      background-size: 20px 100%;
-      z-index: 0;
-      animation: streakShift 10s linear infinite;
-    }
-
-    @keyframes streakShift {
-      0% { background-position: 0 0; }
-      100% { background-position: 20px 0; }
+    @keyframes bgShift {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
     }
 
     .navbar {
-      width: 100%;
       padding: 20px 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       position: relative;
       z-index: 2;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
     }
 
     .logo {
       font-size: 28px;
       font-weight: 700;
+      color: #00d2ff;
     }
 
     .nav-links a {
@@ -67,36 +50,34 @@
       text-decoration: none;
       margin: 0 15px;
       font-weight: 500;
-      transition: 0.3s;
       position: relative;
+      transition: color 0.3s;
     }
 
     .nav-links a.active,
     .nav-links a:hover {
-      color: #87ceeb;
+      color: #00d2ff;
     }
 
     .content {
       padding: 60px 20px;
-      max-width: 960px;
       text-align: center;
-      z-index: 1;
       flex-grow: 1;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      animation: fadeIn 1s ease-in;
+      align-items: center;
+      animation: fadeIn 1.5s ease-out;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .join-users {
       font-size: 14px;
       color: #87ceeb;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     h1 {
@@ -106,46 +87,46 @@
     }
 
     h1 .highlight {
-      color: #87ceeb;
-      padding: 0 8px;
+      color: #00d2ff;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 4px 10px;
       border-radius: 8px;
-      background: rgba(255,255,255,0.05);
     }
 
     p {
       font-size: 18px;
-      opacity: 0.9;
-      margin-bottom: 40px;
+      color: rgba(255, 255, 255, 0.9);
       max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 0 auto 40px;
     }
 
     .download-buttons {
       display: flex;
       gap: 20px;
-      justify-content: center;
       flex-wrap: wrap;
+      justify-content: center;
     }
 
     .download-btn {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.2);
-      padding: 12px 24px;
+      padding: 14px 28px;
       border-radius: 40px;
       color: white;
       text-decoration: none;
-      font-weight: 500;
-      backdrop-filter: blur(10px);
+      font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       transition: all 0.3s ease;
     }
 
     .download-btn:hover {
-      background: rgba(255, 255, 255, 0.2);
-      transform: scale(1.05);
+      transform: translateY(-3px) scale(1.03);
+      background: rgba(0, 210, 255, 0.2);
+      box-shadow: 0 6px 18px rgba(0,210,255,0.3);
     }
 
     .download-btn img {
@@ -156,6 +137,7 @@
 
     .tab-content {
       display: none;
+      max-width: 800px;
     }
 
     .tab-content.active {
@@ -163,13 +145,13 @@
     }
 
     .docs-section {
-      margin-top: 20px;
       text-align: left;
+      margin-top: 30px;
     }
 
     .docs-section code {
       background: rgba(255, 255, 255, 0.1);
-      padding: 2px 6px;
+      padding: 3px 8px;
       border-radius: 4px;
       font-size: 14px;
     }
@@ -182,7 +164,7 @@
       text-align: center;
       padding: 20px;
       font-size: 14px;
-      color: rgba(255, 255, 255, 0.6);
+      color: rgba(255, 255, 255, 0.5);
     }
 
     .status-buttons {
@@ -207,13 +189,13 @@
     }
 
     .status-btn.microsoft {
-      background: rgba(0, 128, 0, 0.3);
-      border: 1px solid rgba(0, 128, 0, 0.5);
+      background: rgba(0, 200, 0, 0.2);
+      border: 1px solid rgba(0, 255, 0, 0.3);
     }
 
     .status-btn.mac {
-      background: rgba(255, 0, 0, 0.3);
-      border: 1px solid rgba(255, 0, 0, 0.5);
+      background: rgba(200, 0, 0, 0.2);
+      border: 1px solid rgba(255, 0, 0, 0.3);
     }
 
     .status-btn:hover {
@@ -249,8 +231,8 @@
   <div class="content">
     <div id="about" class="tab-content active">
       <div class="join-users">Join hundreds of users</div>
-      <h1>Spark AI to <span class="highlight">Enhance</span> Your Workflow</h1>
-      <p>Spark AI is a transparent desktop chatbot widget for Windows and Mac that helps streamline your tasks with speed and style.</p>
+      <h1>Use Spark AI to <span class="highlight">supercharge</span> your desktop</h1>
+      <p>Spark AI is a transparent desktop chatbot widget for Windows and Mac that brings AI convenience to your fingertips.</p>
       <div class="download-buttons">
         <a href="https://github.com/natedemoss/Spark-AI/releases/download/v1.0.0/Spark.AI.Setup.1.0.0.exe" class="download-btn">
           <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Microsoft_Edge_logo_%282019%29.svg" alt="Windows">
@@ -265,13 +247,12 @@
 
     <div id="docs" class="tab-content">
       <div class="join-users">Get Started with Spark AI</div>
-      <h1>Documentation & Help</h1>
-      <p>Learn how to use Spark AI effectively on your desktop.</p>
+      <h1>Documentation</h1>
+      <p>Here are your keyboard shortcuts and tips:</p>
       <div class="docs-section">
-        <p><strong>Commands:</strong></p>
-        <p><code>Ctrl + Shift + X</code>: Hide widget</p>
-        <p><code>Ctrl + R</code>: Clear messages</p>
-        <p><em>Note:</em> These may not work in all environments due to OS-level key focus.</p>
+        <p><code>Ctrl + Shift + X</code> — Hide widget</p>
+        <p><code>Ctrl + R</code> — Clear messages</p>
+        <p><em>Note: Key shortcuts may vary depending on OS focus.</em></p>
       </div>
     </div>
   </div>
