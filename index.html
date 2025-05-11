@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Spark AI - Transparent AI Chatbot Widget</title>
-  
+
   <!-- Font Awesome for GitHub Icon -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  
+
   <style>
     body {
       margin: 0;
@@ -143,9 +143,19 @@
     .content p {
       font-size: 18px;
       line-height: 1.6;
-      margin-bottom: 40px;
+      margin-bottom: 20px;
       opacity: 0;
       animation: fadeInUp 1s ease-out 0.7s forwards;
+    }
+
+    .feature-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      margin: 30px auto;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      animation: fadeInUp 1s ease-out 0.8s forwards;
+      opacity: 0;
     }
 
     @keyframes fadeInUp {
@@ -283,6 +293,10 @@
       <div class="join-users">Join hundreds of other users</div>
       <h1>Spark AI to <span class="highlight">Enhance</span> Your Workflow</h1>
       <p>Spark AI is a transparent chatbot widget for your desktop, designed to assist seamlessly on Windows and Mac.</p>
+
+      <!-- 👇 Embedded Screenshot -->
+      <img src="https://github.com/natedemoss/spark-ai-website/blob/main/ui.png?raw=true" alt="Spark AI Widget Screenshot" class="feature-image">
+
       <div class="download-buttons">
         <a href="https://github.com/natedemoss/Spark-AI/releases/download/v1.0.0/Spark.AI.Setup.1.0.0.exe" class="download-btn">
           <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Microsoft_Edge_logo_%282019%29.svg" alt="Windows Logo">
