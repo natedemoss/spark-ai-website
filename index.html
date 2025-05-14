@@ -5,10 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Spark AI - Transparent AI Chatbot Widget</title>
 
-  <!-- Font Awesome for GitHub Icon -->
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
+    :root {
+      --primary-color: #ffffff;
+      --bg-dark: #1a1a1a;
+      --bg-light: #2c2c2c;
+      --text-light: rgba(255, 255, 255, 0.9);
+      --text-muted: rgba(255, 255, 255, 0.6);
+      --shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -17,8 +26,8 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(90deg, #1a1a3d, #2d2d6a, #1a1a3d);
-      color: #ffffff;
+      background: linear-gradient(135deg, var(--bg-dark), var(--bg-light));
+      color: var(--text-light);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -34,20 +43,15 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: repeating-linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0.05) 0,
-        rgba(255, 255, 255, 0.05) 1px,
-        transparent 1px,
-        transparent 50px
-      );
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 20px 100%;
       z-index: 0;
-      animation: streakShift 10s linear infinite;
+      animation: streakShift 5s linear infinite;
     }
 
     @keyframes streakShift {
       0% { background-position: 0 0; }
-      100% { background-position: -50px 0; }
+      100% { background-position: 20px 0; }
     }
 
     .navbar {
@@ -56,14 +60,20 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
       position: sticky;
       top: 0;
       z-index: 1000;
     }
 
     .logo {
-      font-size: 24px;
+      font-size: 28px;
       font-weight: bold;
+      background: linear-gradient(45deg, var(--primary-color), #cccccc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
 
     .nav-links {
@@ -73,112 +83,72 @@
     }
 
     .nav-links a {
-      color: rgba(255, 255, 255, 0.7);
+      color: var(--text-muted);
       text-decoration: none;
       font-size: 16px;
       font-weight: 500;
-      transition: color 0.3s;
+      padding: 8px 12px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
     }
 
-    .nav-links a:hover {
-      color: #ffffff;
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--text-light);
+      background: rgba(255, 255, 255, 0.1);
     }
 
     .github-link {
       font-size: 20px;
-      color: rgba(255, 255, 255, 0.7);
+      color: var(--text-muted);
       transition: color 0.3s;
     }
 
     .github-link:hover {
-      color: #ffffff;
+      color: var(--primary-color);
     }
 
     .hero {
       text-align: center;
       padding: 100px 20px;
-      max-width: 1200px;
+      max-width: 1000px;
       margin: 0 auto;
-      position: relative;
-      z-index: 1;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: heroFadeIn 1.5s ease-out forwards;
     }
 
-    .hero .highlight {
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.6);
-      margin-bottom: 20px;
+    @keyframes heroFadeIn {
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .hero h1 {
-      font-size: 48px;
+      font-size: 64px;
       font-weight: 800;
-      line-height: 1.2;
       margin-bottom: 20px;
-      text-transform: uppercase;
-      background: linear-gradient(45deg, #ffffff, #cccccc);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      position: relative;
+      line-height: 1.2;
+      text-shadow: var(--shadow);
     }
 
-    .hero h1 span.highlighted {
-      background: rgba(255, 255, 255, 0.2);
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-weight: 900;
+    .hero h1 span {
+      color: var(--primary-color);
+      background: rgba(0, 0, 0, 0.5);
+      padding: 5px 12px;
+      border-radius: 8px;
+      animation: pulse 2s infinite;
     }
 
-    .hero h1::after {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 20px;
-      bottom: -10px;
-      left: 0;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
     }
 
     .hero p {
       font-size: 20px;
       line-height: 1.6;
-      color: rgba(255, 255, 255, 0.7);
-      max-width: 600px;
-      margin: 0 auto 40px;
-    }
-
-    .download-buttons {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-    }
-
-    .download-btn {
-      padding: 12px 28px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 25px;
-      color: #ffffff;
-      text-decoration: none;
-      font-size: 16px;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      backdrop-filter: blur(10px);
-      transition: all 0.3s ease;
-    }
-
-    .download-btn:hover {
-      background: rgba(255, 255, 255, 0.2);
-      transform: translateY(-2px);
-    }
-
-    .download-btn img {
-      width: 20px;
-      height: 20px;
-      filter: brightness(0) invert(1);
+      margin-bottom: 30px;
+      color: var(--text-muted);
     }
 
     .content {
@@ -210,7 +180,7 @@
       height: auto;
       border-radius: 12px;
       margin: 20px 0;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      box-shadow: var(--shadow);
       transition: transform 0.3s ease;
     }
 
@@ -239,7 +209,7 @@
 
     .image-card p {
       font-size: 16px;
-      color: rgba(255, 255, 255, 0.6);
+      color: var(--text-muted);
       margin-top: 10px;
     }
 
@@ -258,7 +228,7 @@
     .docs-section p {
       font-size: 16px;
       line-height: 1.6;
-      color: rgba(255, 255, 255, 0.7);
+      color: var(--text-muted);
     }
 
     .docs-section code {
@@ -266,7 +236,7 @@
       padding: 2px 6px;
       border-radius: 4px;
       font-size: 14px;
-      color: #ffffff;
+      color: var(--primary-color);
     }
 
     .docs-section ul {
@@ -279,13 +249,47 @@
       margin-bottom: 10px;
     }
 
+    .download-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin: 30px 0;
+    }
+
+    .download-btn {
+      padding: 12px 28px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 40px;
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
+    }
+
+    .download-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.05);
+    }
+
+    .download-btn img {
+      width: 20px;
+      height: 20px;
+      filter: brightness(0) invert(1);
+    }
+
     .footer {
       margin-top: auto;
       padding: 20px;
       font-size: 14px;
-      color: rgba(255, 255, 255, 0.6);
+      color: var(--text-muted);
       text-align: center;
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0.5);
       width: 100%;
     }
 
@@ -304,7 +308,7 @@
       border-radius: 15px;
       font-size: 12px;
       font-weight: 500;
-      color: #ffffff;
+      color: var(--text-light);
       backdrop-filter: blur(10px);
       transition: transform 0.2s ease;
     }
@@ -339,24 +343,23 @@
   </div>
 
   <div class="hero">
-    <div class="highlight">Join hundreds of users</div>
-    <h1>Spark AI to <span class="highlighted">enhance</span> your workflow</h1>
-    <p>Spark AI is a completely undetectable desktop assistant that enhances your productivity on Windows and Mac.</p>
-    <div class="download-buttons">
-      <a href="path/to/spark-ai-mac-setup.dmg" class="download-btn">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple Logo">
-        Download for Mac
-      </a>
-      <a href="https://github.com/natedemoss/Spark-AI/releases/download/v4.0.0/Spark.AI.Setup.4.0.0.exe" class="download-btn">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Microsoft_Edge_logo_%282019%29.svg" alt="Windows Logo">
-        Download for Windows
-      </a>
-    </div>
+    <h1>Spark AI: <span>Empower</span> Your Workflow</h1>
+    <p>Discover a transparent, movable chatbot widget designed to boost productivity on Windows and Mac.</p>
   </div>
 
   <div class="content">
     <div id="about" class="tab-content active">
       <p>Spark AI is a lightweight Electron application that runs as a transparent, always-accessible widget on your desktop. Use it for quick calculations, research, or task assistance.</p>
+      <div class="download-buttons">
+        <a href="https://github.com/natedemoss/Spark-AI/releases/download/v4.0.0/Spark.AI.Setup.4.0.0.exe" class="download-btn">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Microsoft_Edge_logo_%282019%29.svg" alt="Windows Logo">
+          Download for Windows
+        </a>
+        <a href="path/to/spark-ai-mac-setup.dmg" class="download-btn">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple Logo">
+          Download for Mac
+        </a>
+      </div>
     </div>
 
     <div id="docs" class="tab-content">
