@@ -4,17 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Spark AI - Transparent AI Chatbot Widget</title>
+
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   <style>
     :root {
       --primary-color: #ffffff;
-      --main-font-color: #f5f7ff; /* Even lighter text for better visibility */
-      --bg-dark: #0f172a;
-      --bg-gradient-start: #0f172a;
-      --bg-gradient-end: #1e3a8a;
-      --text-muted: rgba(245, 247, 255, 0.95); /* Brighter muted text */
-      --shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-      --spotlight: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+      --bg-dark: #1a1a1a;
+      --bg-light: #2c2c2c;
+      --text-light: rgba(255, 255, 255, 0.9);
+      --text-muted: rgba(255, 255, 255, 0.6);
+      --shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
     }
 
     * {
@@ -25,8 +26,8 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
-      color: var(--main-font-color);
+      background: linear-gradient(135deg, var(--bg-dark), var(--bg-light));
+      color: var(--text-light);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -42,26 +43,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: var(--spotlight);
-      background-size: 200% 200%;
-      z-index: 0;
-      animation: spotlightMove 15s ease-in-out infinite;
-    }
-
-    @keyframes spotlightMove {
-      0% { background-position: 0% 0%; }
-      50% { background-position: 100% 100%; }
-      100% { background-position: 0% 0%; }
-    }
-
-    body::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
       background-size: 20px 100%;
       z-index: 0;
       animation: streakShift 5s linear infinite;
@@ -78,31 +60,20 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(15px);
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
       position: sticky;
       top: 0;
       z-index: 1000;
-      animation: slideDown 1s ease-out;
-    }
-
-    @keyframes slideDown {
-      from { transform: translateY(-100%); }
-      to { transform: translateY(0); }
     }
 
     .logo {
       font-size: 28px;
       font-weight: bold;
-      color: var(--primary-color);
-      text-shadow: 0 0 15px rgba(59, 130, 246, 0.7);
-      animation: glow 3s ease-in-out infinite;
-    }
-
-    @keyframes glow {
-      0% { text-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
-      50% { text-shadow: 0 0 20px rgba(59, 130, 246, 0.8); }
-      100% { text-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
+      background: linear-gradient(45deg, var(--primary-color), #a537fd);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
 
     .nav-links {
@@ -119,50 +90,32 @@
       padding: 8px 12px;
       border-radius: 5px;
       transition: all 0.3s ease;
-      position: relative;
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      bottom: 0;
-      left: 0;
-      background: var(--primary-color);
-      transition: width 0.3s ease;
-    }
-
-    .nav-links a:hover::after,
-    .nav-links a.active::after {
-      width: 100%;
     }
 
     .nav-links a:hover,
     .nav-links a.active {
-      color: var(--main-font-color);
+      color: var(--text-light);
       background: rgba(255, 255, 255, 0.1);
     }
 
     .github-link {
       font-size: 20px;
       color: var(--text-muted);
-      transition: color 0.3s, transform 0.3s;
+      transition: color 0.3s;
     }
 
     .github-link:hover {
       color: var(--primary-color);
-      transform: rotate(360deg);
     }
 
     .hero {
       text-align: center;
-      padding: 120px 20px 60px;
+      padding: 100px 20px;
       max-width: 1000px;
       margin: 0 auto;
       opacity: 0;
       transform: translateY(20px);
-      animation: heroFadeIn 1.5s ease-out forwards 0.5s;
+      animation: heroFadeIn 1.5s ease-out forwards;
     }
 
     @keyframes heroFadeIn {
@@ -175,15 +128,11 @@
       margin-bottom: 20px;
       line-height: 1.2;
       text-shadow: var(--shadow);
-      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.5)); /* Increased opacity for visibility */
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
     }
 
     .hero h1 span {
       color: var(--primary-color);
-      background: rgba(59, 130, 246, 0.7); /* Slightly brighter background */
+      background: rgba(165, 55, 253, 0.5);
       padding: 5px 12px;
       border-radius: 8px;
       animation: pulse 2s infinite;
@@ -200,20 +149,6 @@
       line-height: 1.6;
       margin-bottom: 30px;
       color: var(--text-muted);
-      animation: fadeIn 1s ease-out 1s forwards;
-    }
-
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-
-    .join-users {
-      font-size: 16px;
-      color: var(--text-muted);
-      margin-bottom: 40px;
-      opacity: 0;
-      animation: fadeIn 1s ease-out 1.5s forwards;
-      text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Brighter shadow */
     }
 
     .content {
@@ -221,13 +156,18 @@
       width: 100%;
       padding: 40px 20px;
       z-index: 1;
+      flex-grow: 1;
     }
 
-    .section {
+    .tab-content {
+      display: none;
       opacity: 0;
       transform: translateY(20px);
       animation: fadeInTab 0.5s ease-out forwards;
-      margin-bottom: 40px;
+    }
+
+    .tab-content.active {
+      display: block;
     }
 
     @keyframes fadeInTab {
@@ -241,12 +181,11 @@
       border-radius: 12px;
       margin: 20px 0;
       box-shadow: var(--shadow);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.3s ease;
     }
 
     .feature-image:hover {
       transform: scale(1.02);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
     }
 
     .image-grid {
@@ -257,16 +196,15 @@
     }
 
     .image-card {
-      background: rgba(255, 255, 255, 0.1); /* Slightly lighter background */
+      background: rgba(255, 255, 255, 0.05);
       padding: 20px;
       border-radius: 12px;
       text-align: center;
-      transition: transform 0.3s ease, background 0.3s ease;
+      transition: transform 0.3s ease;
     }
 
     .image-card:hover {
       transform: translateY(-5px);
-      background: rgba(255, 255, 255, 0.15);
     }
 
     .image-card p {
@@ -276,22 +214,15 @@
     }
 
     .docs-section {
-      background: rgba(255, 255, 255, 0.1); /* Slightly lighter background */
+      background: rgba(255, 255, 255, 0.05);
       padding: 20px;
       border-radius: 12px;
       margin: 20px 0;
-      animation: slideUp 0.5s ease-out;
-    }
-
-    @keyframes slideUp {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
     }
 
     .docs-section h2 {
       font-size: 24px;
       margin-bottom: 15px;
-      color: var(--main-font-color);
     }
 
     .docs-section p {
@@ -301,7 +232,7 @@
     }
 
     .docs-section code {
-      background: rgba(255, 255, 255, 0.2); /* Lighter code background */
+      background: rgba(255, 255, 255, 0.1);
       padding: 2px 6px;
       border-radius: 4px;
       font-size: 14px;
@@ -327,10 +258,10 @@
 
     .download-btn {
       padding: 12px 28px;
-      background: rgba(255, 255, 255, 0.15); /* Lighter button background */
-      border: 1px solid rgba(255, 255, 255, 0.4);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 40px;
-      color: var(--main-font-color);
+      color: var(--text-light);
       text-decoration: none;
       font-size: 16px;
       font-weight: 500;
@@ -339,36 +270,11 @@
       gap: 10px;
       backdrop-filter: blur(12px);
       transition: all 0.3s ease;
-      animation: bounceIn 1s ease-out;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .download-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: 0.5s;
-    }
-
-    .download-btn:hover::before {
-      left: 100%;
-    }
-
-    @keyframes bounceIn {
-      0% { transform: scale(0.8); opacity: 0; }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); opacity: 1; }
     }
 
     .download-btn:hover {
-      background: rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.2);
       transform: scale(1.05);
-      box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
     }
 
     .download-btn img {
@@ -383,9 +289,8 @@
       font-size: 14px;
       color: var(--text-muted);
       text-align: center;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.5);
       width: 100%;
-      animation: fadeIn 1s ease-out;
     }
 
     .status-buttons {
@@ -403,9 +308,9 @@
       border-radius: 15px;
       font-size: 12px;
       font-weight: 500;
-      color: var(--main-font-color);
+      color: var(--text-light);
       backdrop-filter: blur(10px);
-      transition: transform 0.3s ease, background 0.3s ease;
+      transition: transform 0.2s ease;
     }
 
     .status-btn.microsoft {
@@ -420,7 +325,6 @@
 
     .status-btn:hover {
       transform: scale(1.05);
-      background: rgba(255, 255, 255, 0.2);
     }
   </style>
 </head>
@@ -429,9 +333,9 @@
   <div class="navbar">
     <div class="logo">Spark AI</div>
     <div class="nav-links">
-      <a href="#about" onclick="scrollToSection('about')">About</a>
-      <a href="#docs" onclick="scrollToSection('docs')">Documentation</a>
-      <a href="#use-cases" onclick="scrollToSection('use-cases')">Use Cases</a>
+      <a href="#" onclick="showTab('about')" class="active">About</a>
+      <a href="#" onclick="showTab('docs')">Documentation</a>
+      <a href="#" onclick="showTab('use cases')">Use cases</a>
       <a href="https://github.com/natedemoss/spark-ai" class="github-link" target="_blank" title="GitHub Repo">
         <i class="fab fa-github"></i>
       </a>
@@ -439,27 +343,26 @@
   </div>
 
   <div class="hero">
-    <div class="join-users">Join Hundreds of Users</div>
-    <h1>Desktop Assistant to <span>Boost</span> Your Workflow</h1>
-    <p>Spark AI is your seamless, transparent chatbot widget that enhances productivity across Windows and Mac with real-time task assistance.</p>
-    <div class="download-buttons">
-      <a href="https://github.com/natedemoss/Spark-AI/releases/download/v4.0.1/Spark.AI.Setup.4.0.1.exe" class="download-btn">
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAclBMVEXz8/PzUyWBvAYFpvD/ugjz9PX19PXz+fr39fr69vPy9fp5uAAAofD/tgDz3Nji6tfzRADzTBfzmYew0oB/xfH70IDX5/P16tfz5eLo7eHzPADzlICs0Hfh6/N3wvH7znj07eEAnvDzvbPL3q6u1/L43q6vy/leAAABd0lEQVR4nO3cR1IDQRREwcb0SEgj770B7n9FNmhEBL1g8zUs8l2gIi9QKUmSpHs5vPtWFV4uANMwunUD3IyiS7+Jebgdx7bddb63uvt+dKOqIBw/xTaZNsLZc3CEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEjxVuJ7GNfwj7LQjTejcN7noTVu+z4PabgjB1wmumqm50JaAkSX/oLbxmKveiK/zqp8NxHtvx40bMn6dFbKdzgbi81MEdb8LeaRDdqiSsX2Kr541wMXiNjZCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkPCxwuj/0kvb/6V5Gd2hmTqvokulm90HluNrFyhJ0j/rC6N0RI28dGy3AAAAAElFTkSuQmCC" alt="Windows Logo">
-        Download for Windows
-      </a>
-      <a href="" class="download-btn">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple Logo">
-        Download for Mac
-      </a>
-    </div>
+    <h1>Spark AI: <span>Empower</span> Your Workflow</h1>
+    <p>Discover a transparent, movable chatbot widget designed to boost productivity on Windows and Mac.</p>
   </div>
 
   <div class="content">
-    <div id="about" class="section">
+    <div id="about" class="tab-content active">
       <p>Spark AI is a lightweight Electron application that runs as a transparent, always-accessible widget on your desktop. Use it for quick calculations, research, or task assistance.</p>
+      <div class="download-buttons">
+        <a href="https://github.com/natedemoss/Spark-AI/releases/download/v4.0.1/Spark.AI.Setup.4.0.1.exe" class="download-btn">
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAclBMVEXz8/PzUyWBvAYFpvD/ugjz9PX19PXz+fr39fr69vPy9fp5uAAAofD/tgDz3Nji6tfzRADzTBfzmYew0oB/xfH70IDX5/P16tfz5eLo7eHzPADzlICs0Hfh6/N3wvH7znj07eEAnvDzvbPL3q6u1/L43q6vy/leAAABd0lEQVR4nO3cR1IDQRREwcb0SEgj770B7n9FNmhEBL1g8zUs8l2gIi9QKUmSpHs5vPtWFV4uANMwunUD3IyiS7+Jebgdx7bddb63uvt+dKOqIBw/xTaZNsLZc3CEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEjxVuJ7GNfwj7LQjTejcN7noTVu+z4PabgjB1wmumqm50JaAkSX/oLbxmKveiK/zqp8NxHtvx40bMn6dFbKdzgbi81MEdb8LeaRDdqiSsX2Kr541wMXiNjZCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkPCxwuj/0kvb/6V5Gd2hmTqvokulm90HluNrFyhJ0j/rC6N0RI28dGy3AAAAAElFTkSuQmCC" alt="Windows Logo">
+          Download for Windows
+        </a>
+        <a href="" class="download-btn">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple Logo">
+          Download for Mac
+        </a>
+      </div>
     </div>
 
-    <div id="docs" class="section">
+    <div id="docs" class="tab-content">
       <div class="docs-section">
         <h2>What is Spark AI?</h2>
         <p>Spark AI is an Electron-based desktop application that provides a transparent, movable chatbot widget. Built with HTML, JavaScript, and Node.js, it integrates seamlessly into your workflow, offering assistance with tasks like math, science, and research.</p>
@@ -487,7 +390,7 @@
       </div>
     </div>
 
-    <div id="use-cases" class="section">
+    <div id="use cases" class="tab-content">
       <div class="docs-section">
         <h2>Explore Spark AI's Capabilities</h2>
         <p>Spark AI is versatile and can assist with various tasks. You can move the widget by dragging the top bar or using <code>Ctrl + Arrow Keys</code>.</p>
@@ -513,8 +416,15 @@
   <div class="footer">Created by Nathan DeMoss</div>
 
   <script>
-    function scrollToSection(sectionId) {
-      document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.classList.remove('active');
+      });
+      document.getElementById(tabId).classList.add('active');
+      document.querySelector(`.nav-links a[onclick="showTab('${tabId}')"]`).classList.add('active');
     }
   </script>
 </body>
