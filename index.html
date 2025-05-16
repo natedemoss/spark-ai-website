@@ -113,30 +113,6 @@
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .logo-icon {
-      display: inline-block;
-      width: 30px;
-      height: 30px;
-      background: var(--gradient);
-      border-radius: 8px;
-      position: relative;
-    }
-
-    .logo-icon:before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 15px;
-      height: 15px;
-      background: #fff;
-      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
     }
 
     .nav-links {
@@ -606,7 +582,7 @@
 
   <!-- Navigation -->
   <nav class="navbar">
-    <div class="logo"><div class="logo-icon"></div>Spark AI</div>
+    <div class="logo">Spark AI</div>
     <div class="nav-links">
       <a href="#hero" class="active">Home</a>
       <a href="#about">About</a>
